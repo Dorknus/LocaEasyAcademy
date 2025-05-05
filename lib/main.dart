@@ -15,6 +15,9 @@ import 'flutter_flow/internationalization.dart';
 import 'flutter_flow/nav/nav.dart';
 import 'index.dart';
 
+import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   GoRouter.optionURLReflectsImperativeAPIs = true;
@@ -120,6 +123,30 @@ class _MyAppState extends State<MyApp> {
       ),
       themeMode: _themeMode,
       routerConfig: _router,
+    );
+  }
+}
+void main() async {
+  await dotenv.load();  // Carregar variáveis de ambiente do arquivo .env
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // Acessar variáveis do .env
+    String? supabaseApiKey = dotenv.env['SUPABASE_API_KEY'];
+    String? sendinblueApiKey = dotenv.env['SENDINBLUE_API_KEY'];
+
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text("Exemplo de Uso de Variáveis de Ambiente"),
+        ),
+        body: Center(
+          child: Text('Supabase API Key: $supabaseApiKey'),
+        ),
+      ),
     );
   }
 }
